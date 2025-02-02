@@ -4,6 +4,9 @@
 // ============================================================================================================================
 
 import { state } from './data.js';
+import { food } from './data.js';
+import { toys } from './data.js';
+import { exerciseEquipment } from './data.js';
 
 //cached elements
 const actionBtnOne = document.querySelector("#actionBtnOne");

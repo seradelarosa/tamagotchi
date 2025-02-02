@@ -1,26 +1,23 @@
-//grab actionBtnOne
+//KNOWN BUGS
+//lowerHunger() generates one randomInteger at the start, and uses that same value every 4 seconds. It needs to generate a new randomInteger every 4 seconds.
+//when hunger = 0, need to disable button that adds to hunger value...
+
+// ============================================================================================================================
+
+//cached elements
 const actionBtnOne = document.querySelector("#actionBtnOne");
-//grab timerDisplay
 const timerDisplay = document.querySelector('#timerDisplay');
-//grab hungerDisplay
 const hungerDisplay = document.querySelector('#hungerDisplay');
 
-//establish hunger meter
+//establish meters
 let hunger = 10;
+let boredom = 10;
+let sleepiness = 10;
 
-//Have button add one to hunger meter
-const addHunger = () => {
-    hunger += 1;
-    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
-    console.log(hunger);
-};
+// ===============================================================================================================================
 
-actionBtnOne.addEventListener("click", addHunger);
-
-//each day= 3 minutes (180 seconds)
 //1000 milliseconds = 1 second
-//bind this to init, or onLoad?
-const timer = () => {
+const dayTimer = () => {
     //start timer at 3:00 and have it count down...
     //every 3 minutes... checkState? If values > 0, winMsg(), nextDay(), if ONE or more values === 0, lossMsg(), restartDay()
     let timeLeft = 180;
@@ -48,13 +45,55 @@ const timer = () => {
     
 };
 
+//need to be able to stop the timer from other functions...
+
+// =======================================================================================================
+
+//function to add one to hunger meter
+//TO DO: grab value from food object and add that value instead of one
+const addHunger = () => {
+    hunger += 1;
+    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    console.log(hunger);
+};
+
+//how to increment hunger down... on a 4 second timer.. using a random integer between 1-3?
+const lowerHunger = () => {
+    //grab random integer first
+    //it's only generating a random integer once, and then using that value every 4 seconds
+    //how do I make it generate a new randomInteger every 4 seconds?
+    let randomInteger = Math.floor(Math.random() * 3) + 1;
+    console.log(randomInteger);
+
+    const countdown = setInterval(() => {
+        hunger = hunger - randomInteger;
+        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+
+        if (hunger <= 0) {
+            clearInterval(countdown);
+            hungerDisplay.innerHTML = "Starving! You lose! Retry?";
+        }
+    }, 6000);
+};
+
+// ========================================================================================================
+
+actionBtnOne.addEventListener("click", addHunger);
+
+//=========================================================================================================
+
 //stuff to do on page load
 //from MDN web docs window.onload
 window.onload = () => {
-    timer();
+    //binding timer to start onload
+    dayTimer();
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     timerDisplay.innerHTML = `Day 1:`;
+    lowerHunger();
 };
+
+// restartDay()
+// startNextDay()
 
 
 //randomly pick a state to decrease every 4 seconds (use setInterval to execute a callback function every 4 seconds?) by a random integer between 1-3

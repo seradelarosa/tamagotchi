@@ -4,15 +4,17 @@
 
 // ============================================================================================================================
 
+import { state } from './data.js';
+
 //cached elements
 const actionBtnOne = document.querySelector("#actionBtnOne");
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
 
 //establish meters
-let hunger = 10;
-let boredom = 10;
-let sleepiness = 10;
+let hunger = state.hunger;
+let happiness = 10;
+let fun = 10;
 
 // ===============================================================================================================================
 
@@ -90,6 +92,7 @@ window.onload = () => {
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     timerDisplay.innerHTML = `Day 1:`;
     lowerHunger();
+    console.log(state.hunger);
 };
 
 // restartDay()

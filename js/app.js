@@ -1,5 +1,4 @@
 //KNOWN BUGS
-//lowerHunger() generates one randomInteger at the start, and uses that same value every 4 seconds. It needs to generate a new randomInteger every 4 seconds.
 //when hunger = 0, need to disable button that adds to hunger value...
 
 // ============================================================================================================================
@@ -15,6 +14,18 @@ const hungerDisplay = document.querySelector('#hungerDisplay');
 let hunger = state.hunger;
 let happiness = state.happiness;
 let fun = state.fun;
+
+//food variables 
+let cookie = food.cookie;
+let cereal = food.cereal;
+
+//toy variables
+let stuffedAnimal = toys.stuffedAnimal;
+let coloringBook = toys.coloringBook;
+
+//exercise equipment variables
+let trampoline = exerciseEquipment.trampoline;
+let baseballSet = exerciseEquipment.baseballSet;
 
 // ===============================================================================================================================
 
@@ -59,9 +70,8 @@ const addHunger = () => {
     console.log(hunger);
 };
 
-//how to increment hunger down... on a 4 second timer.. using a random integer between 1-3?
+//increments hunger down on a 6 second timer using a random integer between 1-3
 const lowerHunger = () => {
-
     const countdown = setInterval(() => {
         //grab random integer first
         let randomInteger = Math.floor(Math.random() * 3) + 1;

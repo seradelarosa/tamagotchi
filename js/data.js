@@ -17,7 +17,7 @@ export const toys = {
 };
 
 //increases fun
-const exerciseEquipment = {
+export const exerciseEquipment = {
     trampoline: +3,
-    
+    baseballSet: +2
 };

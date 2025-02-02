@@ -13,8 +13,8 @@ const hungerDisplay = document.querySelector('#hungerDisplay');
 
 //establish meters
 let hunger = state.hunger;
-let happiness = 10;
-let fun = 10;
+let happiness = state.happiness;
+let fun = state.fun;
 
 // ===============================================================================================================================
 
@@ -61,13 +61,11 @@ const addHunger = () => {
 
 //how to increment hunger down... on a 4 second timer.. using a random integer between 1-3?
 const lowerHunger = () => {
-    //grab random integer first
-    //it's only generating a random integer once, and then using that value every 4 seconds
-    //how do I make it generate a new randomInteger every 4 seconds?
-    let randomInteger = Math.floor(Math.random() * 3) + 1;
-    console.log(randomInteger);
 
     const countdown = setInterval(() => {
+        //grab random integer first
+        let randomInteger = Math.floor(Math.random() * 3) + 1;
+        console.log(randomInteger);
         hunger = hunger - randomInteger;
         hungerDisplay.innerHTML = `Hunger: ${hunger}`;
 

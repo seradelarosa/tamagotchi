@@ -37,6 +37,12 @@ let coloringBook = toys.coloringBook;
 let trampoline = exerciseEquipment.trampoline;
 let baseballSet = exerciseEquipment.baseballSet;
 
+//need to be able to stop the timer from other functions...
+//so countdown must be stored globally so it can be accessed....
+//so each countdown needs to be uniquely named?
+let dayTimerInterval;
+let hungerTimerInterval;
+
 // ===============================================================================================================================
 
 //1000 milliseconds = 1 second
@@ -46,7 +52,7 @@ const dayTimer = () => {
     let timeLeft = 180;
 
     //from MDN web docs setInterval
-    const countdown = setInterval(() => {
+    const dayTimerInterval = setInterval(() => {
         //from web docs Math.floor()
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
@@ -58,7 +64,7 @@ const dayTimer = () => {
 
         //when timer reaches 0; endGame(); and reset();? startTimer() / stopTimer()?
         if (timeLeft === 0) {
-            clearInterval(countdown);
+            clearInterval(dayTimerInterval);
             timerDisplay.innerHTML = "Time's up!";
         }
 
@@ -69,6 +75,9 @@ const dayTimer = () => {
 };
 
 //need to be able to stop the timer from other functions...
+const stopDayTimer = () => {
+    clearInterval(dayTimerInterval);
+};
 
 // =======================================================================================================
 
@@ -112,6 +121,11 @@ const lowerHunger = () => {
         }
     }, 6000);
 };
+
+const stopHungerTimer = () => {
+    clearInterval(hungerTimerInterval);
+};
+
 
 //button controls
 

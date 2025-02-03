@@ -68,9 +68,15 @@ const dayTimer = () => {
 //function to add one to hunger meter
 //TO DO: grab value from food object and add that value instead of one
 const addHunger = () => {
-    hunger += 1;
-    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
-    console.log(hunger);
+    if (hunger < 10) {
+        hunger += 1;
+        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    }
+
+    //cannot be above 10
+    if (hunger >= 10) {
+        disableActionBtnOne();
+    }
 };
 
 //increments hunger down on a 6 second timer using a random integer between 1-3
@@ -78,15 +84,34 @@ const lowerHunger = () => {
     const countdown = setInterval(() => {
         //grab random integer first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
-        console.log(randomInteger);
         hunger = hunger - randomInteger;
         hungerDisplay.innerHTML = `Hunger: ${hunger}`;
 
         if (hunger <= 0) {
+            //keep hunger at 0
+            hunger = 0;
             clearInterval(countdown);
+            disableActionBtnOne();
             hungerDisplay.innerHTML = "Starving! You lose! Retry?";
+            //when player loses, don't run anything else below
+            return;
+            //TO DO: create button to retry that resets the game and timer
+        }
+
+        if (hunger < 10) {
+            enableActionBtnOne();
         }
     }, 6000);
+};
+
+//button controls
+
+const disableActionBtnOne = () => {
+    actionBtnOne.disabled = true;
+};
+
+const enableActionBtnOne = () => {
+    actionBtnOne.disabled = false;
 };
 
 // ========================================================================================================

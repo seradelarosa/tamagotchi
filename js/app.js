@@ -2,9 +2,9 @@
 //
 
 //NEXT STEPS: 2/2
+//define reset()
 //define loss()
 //change to sleeping via CSS class change
-//define reset()
 //reset values, timer...
 
 // ============================================================================================================================
@@ -13,11 +13,15 @@ import { state } from './data.js';
 import { food } from './data.js';
 import { toys } from './data.js';
 import { exerciseEquipment } from './data.js';
+import { currentDay } from './data.js';
 
 //cached elements
 const actionBtnOne = document.querySelector("#actionBtnOne");
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
+
+//bring in currentDay value (1)
+let day = currentDay.day;
 
 //establish meters
 let hunger = state.hunger;
@@ -43,6 +47,11 @@ let dayTimerInterval;
 let hungerTimerInterval;
 
 // ===============================================================================================================================
+
+//need to be able to stop the timer from other functions...
+const stopDayTimer = () => {
+    clearInterval(dayTimerInterval);
+};
 
 //1000 milliseconds = 1 second
 const dayTimer = () => {
@@ -74,12 +83,11 @@ const dayTimer = () => {
 
 };
 
-//need to be able to stop the timer from other functions...
-const stopDayTimer = () => {
-    clearInterval(dayTimerInterval);
-};
-
 // =======================================================================================================
+
+const stopHungerTimer = () => {
+    clearInterval(hungerTimerInterval);
+};
 
 //function to add one to hunger meter
 //TO DO: grab value from food object and add that value instead of one
@@ -93,10 +101,6 @@ const addHunger = () => {
     if (hunger >= 10) {
         disableActionBtnOne();
     }
-};
-
-const stopHungerTimer = () => {
-    clearInterval(hungerTimerInterval);
 };
 
 //increments hunger down on a 6 second timer using a random integer between 1-3
@@ -127,9 +131,35 @@ const lowerHunger = () => {
     }, 6000);
 };
 
+// ======================================================================================================
+
+//resetDay()
+//reset hunger, fun, exercise
+//idle png class
+
+//loss()
+//resetDay()
+//sleeping png class
+//buttons to retry()
+
+//retry()
+//deletes one from day value
+//if day value = 1, stay at 1
+//resetDay()
+
+//win()
+//if (dayTimer === 0 && hunger > 0, happiness > 0, fun > 0) { success()};
+//happy png class?
+
+//success()
+//resetDay()
+//add 1 to day
+//update display to show Day 2 (for example)
+
+
+// =======================================================================================================
 
 //button controls
-
 const disableActionBtnOne = () => {
     actionBtnOne.disabled = true;
 };
@@ -152,7 +182,8 @@ window.onload = () => {
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     timerDisplay.innerHTML = `Day 1:`;
     lowerHunger();
-    console.log(state.hunger);
+    //start lowering happiness
+    //start lowering fun
 };
 
 // restartDay()
@@ -210,6 +241,5 @@ window.onload = () => {
 //define loss
 //if hunger | boredom = 0;
 //trigger loss();
-//sleeping png class
 //prompt to retry (does state reset and subtracts 1 from day value)
 //BUT day cannot be below one

@@ -21,3 +21,8 @@ export const exerciseEquipment = {
     trampoline: +3,
     baseballSet: +2
 };
+
+//set day state to store and update
+export const currentDay = {
+    day: 1
+};

@@ -2,7 +2,6 @@
 //
 
 //NEXT STEPS: 2/2
-//make stopTimer() if hunger = 0
 //define loss()
 //change to sleeping via CSS class change
 //define reset()
@@ -52,12 +51,12 @@ const dayTimer = () => {
     let timeLeft = 180;
 
     //from MDN web docs setInterval
-    const dayTimerInterval = setInterval(() => {
+    dayTimerInterval = setInterval(() => {
         //from web docs Math.floor()
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
         //ensure correct format
-        seconds = seconds < 10 ? "0" + seconds : seconds; 
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
         //update display
         timerDisplay.innerHTML = `Day 1: ${minutes}:${seconds}`;
@@ -65,13 +64,14 @@ const dayTimer = () => {
         //when timer reaches 0; endGame(); and reset();? startTimer() / stopTimer()?
         if (timeLeft === 0) {
             clearInterval(dayTimerInterval);
+            stopHungerTimer();
             timerDisplay.innerHTML = "Time's up!";
         }
 
-        timeLeft --;
+        timeLeft--;
 
     }, 1000);
-    
+
 };
 
 //need to be able to stop the timer from other functions...
@@ -95,9 +95,13 @@ const addHunger = () => {
     }
 };
 
+const stopHungerTimer = () => {
+    clearInterval(hungerTimerInterval);
+};
+
 //increments hunger down on a 6 second timer using a random integer between 1-3
 const lowerHunger = () => {
-    const countdown = setInterval(() => {
+    hungerTimerInterval = setInterval(() => {
         //grab random integer first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         hunger = hunger - randomInteger;
@@ -106,8 +110,9 @@ const lowerHunger = () => {
         if (hunger <= 0) {
             //keep hunger at 0
             hunger = 0;
-            clearInterval(countdown);
+            clearInterval(hungerTimerInterval);
             disableActionBtnOne();
+            stopDayTimer();
             hungerDisplay.innerHTML = "Starving! You lose! Retry?";
             //when player loses, don't run anything else below
             return;
@@ -120,10 +125,6 @@ const lowerHunger = () => {
             enableActionBtnOne();
         }
     }, 6000);
-};
-
-const stopHungerTimer = () => {
-    clearInterval(hungerTimerInterval);
 };
 
 

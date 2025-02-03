@@ -17,6 +17,8 @@ import { currentDay } from './data.js';
 
 //cached elements
 const actionBtnOne = document.querySelector("#actionBtnOne");
+const continueBtn = document.querySelector('#continueBtn');
+const retryBtn = document.querySelector('#retryBtn');
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
 
@@ -46,6 +48,14 @@ let baseballSet = exerciseEquipment.baseballSet;
 let dayTimerInterval;
 let hungerTimerInterval;
 
+const successMsg = () => {
+    hungerDisplay.innerHTML = "Congrats! You survived the day. Continue?";
+};
+
+const lossMsg = () => {
+    hungerDisplay.innerHTML = "Your Tamagotchi fell asleep! Try again?";
+};
+
 // ===============================================================================================================================
 
 //need to be able to stop the timer from other functions...
@@ -71,9 +81,13 @@ const dayTimer = () => {
         timerDisplay.innerHTML = `Day 1: ${minutes}:${seconds}`;
 
         //when timer reaches 0; endGame(); and reset();? startTimer() / stopTimer()?
-        if (timeLeft === 0) {
+        if (timeLeft === 0 && hunger > 0) {
+            continueBtn.classList.remove('hidden');
+            disableActionBtnOne();
             clearInterval(dayTimerInterval);
             stopHungerTimer();
+            successMsg();
+            //TO DO: Continue? Continue()
             timerDisplay.innerHTML = "Time's up!";
         }
 
@@ -117,7 +131,8 @@ const lowerHunger = () => {
             clearInterval(hungerTimerInterval);
             disableActionBtnOne();
             stopDayTimer();
-            hungerDisplay.innerHTML = "Starving! You lose! Retry?";
+            lossMsg();
+            retryBtn.classList.remove('hidden');
             //when player loses, don't run anything else below
             return;
             //TO DO: trigger sleeping class
@@ -132,6 +147,14 @@ const lowerHunger = () => {
 };
 
 // ======================================================================================================
+
+const nextDay = () => {
+    console.log("it's the next day!");
+};
+
+const retry = () => {
+    console.log("Retry previous day!");
+};
 
 //resetDay()
 //reset hunger, fun, exercise
@@ -171,6 +194,8 @@ const enableActionBtnOne = () => {
 // ========================================================================================================
 
 actionBtnOne.addEventListener("click", addHunger);
+continueBtn.addEventListener("click", nextDay);
+retryBtn.addEventListener("click", retry);
 
 //=========================================================================================================
 

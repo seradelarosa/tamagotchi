@@ -2,6 +2,10 @@ body {
     background-color: pink;
 }
 
+.hidden {
+    display: none;
+};
+
 /* Use CSS grid to position display and PNGs */
 
 /* need to make a button disabler */

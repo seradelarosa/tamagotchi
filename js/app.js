@@ -1,5 +1,12 @@
 //KNOWN BUGS
-//when hunger = 0, need to disable button that adds to hunger value...
+//
+
+//NEXT STEPS: 2/2
+//make stopTimer() if hunger = 0
+//define loss()
+//change to sleeping via CSS class change
+//define reset()
+//reset values, timer...
 
 // ============================================================================================================================
 
@@ -95,6 +102,8 @@ const lowerHunger = () => {
             hungerDisplay.innerHTML = "Starving! You lose! Retry?";
             //when player loses, don't run anything else below
             return;
+            //TO DO: trigger sleeping class
+            //TO DO: make function to stop timer
             //TO DO: create button to retry that resets the game and timer
         }
 
@@ -138,23 +147,6 @@ window.onload = () => {
 //randomly pick a state to decrease every 4 seconds (use setInterval to execute a callback function every 4 seconds?) by a random integer between 1-3
 
 
-//set hunger limit to 0-10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -191,10 +183,7 @@ window.onload = () => {
 // =================================
 
 //define tamagotchi object
-//let hunger; (0-10)
-//let boredom; (0-10)
-//make a cap at 10
-//if either of these reach 0, trigger sleeping class
+//if hunger/boredom/exercise reach 0, trigger sleeping class
 
 //define days(rounds)
 //let day = 5 minute timer
@@ -202,19 +191,10 @@ window.onload = () => {
 //progress to day 2
 //update day
 
+
 //define loss
 //if hunger | boredom = 0;
 //trigger loss();
 //sleeping png class
-
-//define food object
-//milk: +2
-//add 2 to hunger 
-//cookie: +3
-//adds 3 to hunger
-
-//define toys object
-// coloring book: +3
-//adds 3 to boredom
-// building block: +2
-// adds 2 to boredom
+//prompt to retry (does state reset and subtracts 1 from day value)
+//BUT day cannot be below one

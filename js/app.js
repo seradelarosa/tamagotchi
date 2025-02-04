@@ -87,7 +87,7 @@ const dayTimer = () => {
         if (timeLeft === 0 && hunger > 0) {
             continueBtn.classList.remove('hidden');
             foodOptionsBtn.classList.add('hidden');
-            disableActionBtnOne();
+            disableFoodOptionsBtn();
             stopDayTimer();
             stopHungerTimer();
             successMsg();
@@ -105,13 +105,34 @@ const stopHungerTimer = () => {
     clearInterval(hungerTimerInterval);
 };
 
+const checkHunger = () => {
+    if (hunger >= 10) {
+        disableCookieBtn();
+        disableCerealBtn();
+    } else {
+        enableCookieBtn();
+        enableCerealBtn();
+    }
+};
+
+//check hunger value every 1 second (so buttons can always stay updated)
+setInterval(() => {
+    checkHunger();
+}, 1000);
+
+
 const showFoodOptions = () => {
     disableFoodOptionsBtn();
     foodOptionsBtn.classList.add('hidden');
     cookieBtn.classList.remove('hidden');
     cerealBtn.classList.remove('hidden');
-
 };
+
+const showAllOptions = () => {
+    foodOptionsBtn.classList.remove('hidden');
+    cookieBtn.classList.add('hidden');
+    cerealBtn.classList.add('hidden');
+}
 
 //increments hunger down on a 6 second timer using a random integer between 1-3
 const lowerHunger = () => {
@@ -144,31 +165,38 @@ const lowerHunger = () => {
 };
 
 const addCookie = () => {
-    if (hunger < 10) {
+    //need to have this function check the hunger value, so if hunger changes, this logic is rechecked
+    checkHunger();
+    
+    if (hunger + cookie <= 10) {
         hunger += cookie;
         hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     }
 
-    //cannot be above 10
-    if (hunger >= 10) {
-        disableFoodOptionsBtn();
-        disableCookieBtn();
-        disableCerealBtn();
-    }
+    if (hunger + cookie > 10) {
+        hunger = 10;
+        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    };
+
+    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    showAllOptions();
 };
 
 const addCereal = () => {
-    if (hunger < 10) {
+    checkHunger();
+    
+    if (hunger + cereal <= 10) {
         hunger += cereal;
         hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     }
 
-    //cannot be above 10
-    if (hunger >= 10) {
-        disableFoodOptionsBtn();
-        disableCookieBtn();
-        disableCerealBtn();
-    }
+    if (hunger + cereal > 10) {
+        hunger = 10;
+        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    };
+
+    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    showAllOptions();
 };
 
 // ======================================================================================================
@@ -207,7 +235,10 @@ const resetDay = () => {
 
     continueBtn.classList.add('hidden');
     retryBtn.classList.add('hidden');
+
     foodOptionsBtn.classList.remove('hidden');
+    cookieBtn.classList.add('hidden');
+    cerealBtn.classList.add('hidden');
 
     //reset happiness
     //reset fun
@@ -255,8 +286,13 @@ const enableCerealBtn = () => {
 foodOptionsBtn.addEventListener("click", showFoodOptions);
 cookieBtn.addEventListener("click", addCookie);
 cerealBtn.addEventListener("click", addCereal);
+
 continueBtn.addEventListener("click", nextDay);
 retryBtn.addEventListener("click", retry);
+
+happyOptionsBtn.addEventListener("click", showHappyOptions);
+// buildingBlocksBtn.addEventListener("click", addBuildingBlocks);
+// coloringBookBtn.addEventListener("click", addColoringBook);
 
 //=========================================================================================================
 

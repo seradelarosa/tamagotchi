@@ -14,11 +14,16 @@ import { exerciseEquipment } from './data.js';
 import { currentDay } from './data.js';
 
 //cached elements
-const actionBtnOne = document.querySelector("#actionBtnOne");
-const continueBtn = document.querySelector('#continueBtn');
-const retryBtn = document.querySelector('#retryBtn');
+const foodOptionsBtn = document.querySelector("#foodOptionsBtn");
+
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
+
+const continueBtn = document.querySelector('#continueBtn');
+const retryBtn = document.querySelector('#retryBtn');
+
+const cookieBtn = document.querySelector("#cookieBtn");
+const cerealBtn = document.querySelector("#cerealBtn");
 
 //bring in currentDay value (1)
 let day = currentDay.day;
@@ -81,7 +86,7 @@ const dayTimer = () => {
         //TO DO: update to include all variables
         if (timeLeft === 0 && hunger > 0) {
             continueBtn.classList.remove('hidden');
-            actionBtnOne.classList.add('hidden');
+            foodOptionsBtn.classList.add('hidden');
             disableActionBtnOne();
             stopDayTimer();
             stopHungerTimer();
@@ -100,18 +105,12 @@ const stopHungerTimer = () => {
     clearInterval(hungerTimerInterval);
 };
 
-//function to add one to hunger meter
-//TO DO: grab value from food object and add that value instead of one
-const addHunger = () => {
-    if (hunger < 10) {
-        hunger += 1;
-        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
-    }
+const showFoodOptions = () => {
+    disableFoodOptionsBtn();
+    foodOptionsBtn.classList.add('hidden');
+    cookieBtn.classList.remove('hidden');
+    cerealBtn.classList.remove('hidden');
 
-    //cannot be above 10
-    if (hunger >= 10) {
-        disableActionBtnOne();
-    }
 };
 
 //increments hunger down on a 6 second timer using a random integer between 1-3
@@ -129,21 +128,47 @@ const lowerHunger = () => {
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
-            disableActionBtnOne();
+            disableFoodOptionsBtn();
             hungerDisplay.classList.add('hidden');
             retryBtn.classList.remove('hidden');
-            actionBtnOne.classList.add('hidden');
+            foodOptionsBtn.classList.add('hidden');
             //when player loses, don't run anything else below
             return;
             //TO DO: trigger sleeping class
-            //TO DO: make function to stop timer
-            //TO DO: create button to retry that resets the game and timer
         }
 
         if (hunger < 10) {
-            enableActionBtnOne();
+            enableFoodOptionsBtn();
         }
     }, 6000);
+};
+
+const addCookie = () => {
+    if (hunger < 10) {
+        hunger += cookie;
+        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    }
+
+    //cannot be above 10
+    if (hunger >= 10) {
+        disableFoodOptionsBtn();
+        disableCookieBtn();
+        disableCerealBtn();
+    }
+};
+
+const addCereal = () => {
+    if (hunger < 10) {
+        hunger += cereal;
+        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    }
+
+    //cannot be above 10
+    if (hunger >= 10) {
+        disableFoodOptionsBtn();
+        disableCookieBtn();
+        disableCerealBtn();
+    }
 };
 
 // ======================================================================================================
@@ -182,7 +207,7 @@ const resetDay = () => {
 
     continueBtn.classList.add('hidden');
     retryBtn.classList.add('hidden');
-    actionBtnOne.classList.remove('hidden');
+    foodOptionsBtn.classList.remove('hidden');
 
     //reset happiness
     //reset fun
@@ -196,35 +221,40 @@ const resetDay = () => {
 //sleeping png class
 //buttons to retry()
 
-//retry()
-//deletes one from day value
-//if day value = 1, stay at 1
-//resetDay()
-
-//win()
-//if (dayTimer === 0 && hunger > 0, happiness > 0, fun > 0) { success()};
-//happy png class?
-
-//success()
-//resetDay()
-//add 1 to day
-//update display to show Day 2 (for example)
 
 
 // =======================================================================================================
 
 //button controls
-const disableActionBtnOne = () => {
-    actionBtnOne.disabled = true;
+const disableFoodOptionsBtn = () => {
+    foodOptionsBtn.disabled = true;
 };
 
-const enableActionBtnOne = () => {
-    actionBtnOne.disabled = false;
+const enableFoodOptionsBtn = () => {
+    foodOptionsBtn.disabled = false;
+};
+
+const disableCookieBtn = () => {
+    cookieBtn.disabled = true;
+};
+
+const enableCookieBtn = () => {
+    cookieBtn.disabled = false;
+};
+
+const disableCerealBtn = () => {
+    cerealBtn.disabled = true;
+};
+
+const enableCerealBtn = () => {
+    cerealBtn.disabled = false;
 };
 
 // ========================================================================================================
 
-actionBtnOne.addEventListener("click", addHunger);
+foodOptionsBtn.addEventListener("click", showFoodOptions);
+cookieBtn.addEventListener("click", addCookie);
+cerealBtn.addEventListener("click", addCereal);
 continueBtn.addEventListener("click", nextDay);
 retryBtn.addEventListener("click", retry);
 

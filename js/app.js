@@ -1,5 +1,4 @@
 //KNOWN BUGS
-//when timer runs out and success(), hide foodbtn
 //when continue is selected, hide ontinue btn
 
 //NEXT STEPS: 2/2
@@ -79,15 +78,14 @@ const dayTimer = () => {
         //update display
         timerDisplay.innerHTML = `Day ${day}: ${minutes}:${seconds}`;
 
-        //when timer reaches 0; endGame(); and reset();? startTimer() / stopTimer()?
+        //TO DO: update to include all variables
         if (timeLeft === 0 && hunger > 0) {
             continueBtn.classList.remove('hidden');
+            actionBtnOne.classList.add('hidden');
             disableActionBtnOne();
             stopDayTimer();
             stopHungerTimer();
             successMsg();
-            //TO DO: Continue? Continue()
-            timerDisplay.innerHTML = "Time's up!";
         }
 
         timeLeft--;
@@ -128,6 +126,7 @@ const lowerHunger = () => {
             //keep hunger at 0
             hunger = 0;
             lossMsg();
+            //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
             disableActionBtnOne();
@@ -181,6 +180,7 @@ const resetDay = () => {
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     lowerHunger();
 
+    continueBtn.classList.add('hidden');
     retryBtn.classList.add('hidden');
     actionBtnOne.classList.remove('hidden');
 

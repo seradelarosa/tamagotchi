@@ -1,11 +1,10 @@
 //KNOWN BUGS
-//
+//when timer runs out and success(), hide foodbtn
+//when continue is selected, hide ontinue btn
 
 //NEXT STEPS: 2/2
-//define reset()
 //define loss()
 //change to sleeping via CSS class change
-//reset values, timer...
 
 // ============================================================================================================================
 
@@ -49,11 +48,11 @@ let dayTimerInterval;
 let hungerTimerInterval;
 
 const successMsg = () => {
-    hungerDisplay.innerHTML = "Congrats! You survived the day. Continue?";
+    timerDisplay.innerHTML = "Congrats! You survived the day. Continue?";
 };
 
 const lossMsg = () => {
-    hungerDisplay.innerHTML = "Your Tamagotchi fell asleep! Try again?";
+    timerDisplay.innerHTML = "Your Tamagotchi fell asleep! Try again?";
 };
 
 // ===============================================================================================================================
@@ -78,13 +77,13 @@ const dayTimer = () => {
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         //update display
-        timerDisplay.innerHTML = `Day 1: ${minutes}:${seconds}`;
+        timerDisplay.innerHTML = `Day ${day}: ${minutes}:${seconds}`;
 
         //when timer reaches 0; endGame(); and reset();? startTimer() / stopTimer()?
         if (timeLeft === 0 && hunger > 0) {
             continueBtn.classList.remove('hidden');
             disableActionBtnOne();
-            clearInterval(dayTimerInterval);
+            stopDayTimer();
             stopHungerTimer();
             successMsg();
             //TO DO: Continue? Continue()
@@ -128,11 +127,13 @@ const lowerHunger = () => {
         if (hunger <= 0) {
             //keep hunger at 0
             hunger = 0;
-            clearInterval(hungerTimerInterval);
-            disableActionBtnOne();
-            stopDayTimer();
             lossMsg();
+            stopDayTimer();
+            stopHungerTimer();
+            disableActionBtnOne();
+            hungerDisplay.classList.add('hidden');
             retryBtn.classList.remove('hidden');
+            actionBtnOne.classList.add('hidden');
             //when player loses, don't run anything else below
             return;
             //TO DO: trigger sleeping class
@@ -150,15 +151,45 @@ const lowerHunger = () => {
 
 const nextDay = () => {
     console.log("it's the next day!");
+    day += 1;
+    console.log(day);
+    resetDay();
+};
+
+const subtractDay = () => {
+    if (day <= 1) {
+        day = 1;
+    } else if (day > 1) {
+        day -= 1;
+    }
+
+    console.log(day);
 };
 
 const retry = () => {
-    console.log("Retry previous day!");
+    subtractDay();
+    resetDay();
 };
 
-//resetDay()
-//reset hunger, fun, exercise
-//idle png class
+const resetDay = () => {
+    hunger = 10;
+
+    timerDisplay.innerHTML = `Day ${day}:`;
+    dayTimer();
+
+    hungerDisplay.classList.remove('hidden');
+    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    lowerHunger();
+
+    retryBtn.classList.add('hidden');
+    actionBtnOne.classList.remove('hidden');
+
+    //reset happiness
+    //reset fun
+    //change to idle png class
+};
+
+
 
 //loss()
 //resetDay()

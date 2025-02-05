@@ -15,15 +15,22 @@ import { currentDay } from './data.js';
 
 //cached elements
 const foodOptionsBtn = document.querySelector("#foodOptionsBtn");
+const happinessOptionsBtn = document.querySelector("#happyOptionsBtn");
+// const funOptionsBtn = document.querySelector("#funOptionsBtn");
 
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
+const happinessDisplay = document.querySelector('#happinessDisplay');
+// const funDisplay = document.querySelector('#funDisplay');
 
 const continueBtn = document.querySelector('#continueBtn');
 const retryBtn = document.querySelector('#retryBtn');
 
 const cookieBtn = document.querySelector("#cookieBtn");
 const cerealBtn = document.querySelector("#cerealBtn");
+
+const stuffedAnimalBtn = document.querySelector("#stuffedAnimalBtn");
+const coloringBookBtn = document.querySelector("#coloringBookBtn");
 
 //bring in currentDay value (1)
 let day = currentDay.day;
@@ -50,6 +57,7 @@ let baseballSet = exerciseEquipment.baseballSet;
 //so each countdown needs to be uniquely named?
 let dayTimerInterval;
 let hungerTimerInterval;
+let happinessTimerInterval;
 
 const successMsg = () => {
     timerDisplay.innerHTML = "Congrats! You survived the day. Continue?";
@@ -61,7 +69,7 @@ const lossMsg = () => {
 
 // ===============================================================================================================================
 
-//need to be able to stop the timer from other functions...
+//need to be able to stop the timer from other functions
 const stopDayTimer = () => {
     clearInterval(dayTimerInterval);
 };
@@ -84,12 +92,18 @@ const dayTimer = () => {
         timerDisplay.innerHTML = `Day ${day}: ${minutes}:${seconds}`;
 
         //TO DO: update to include all variables
-        if (timeLeft === 0 && hunger > 0) {
+        if (timeLeft === 0 && hunger > 0 | timeLeft === 0 && happiness > 0) {
+            stopDayTimer();
             continueBtn.classList.remove('hidden');
+
             foodOptionsBtn.classList.add('hidden');
             disableFoodOptionsBtn();
-            stopDayTimer();
             stopHungerTimer();
+
+            disableHappinessOptionsBtn();
+            happinessOptionsBtn.classList.add('hidden');
+            stopHappinessTimer();
+
             successMsg();
         }
 
@@ -101,10 +115,20 @@ const dayTimer = () => {
 
 // =======================================================================================================
 
+//timers
 const stopHungerTimer = () => {
     clearInterval(hungerTimerInterval);
 };
 
+const stopHappinessTimer = () => {
+    clearInterval(happinessTimerInterval);
+}
+
+// const stopFunTimer = () => {
+//     clearInterval(funTimerInterval);
+// };
+
+//check meters
 const checkHunger = () => {
     if (hunger >= 10) {
         disableCookieBtn();
@@ -115,12 +139,25 @@ const checkHunger = () => {
     }
 };
 
-//check hunger value every 1 second (so buttons can always stay updated)
 setInterval(() => {
     checkHunger();
 }, 1000);
 
+const checkHappiness = () => {
+    if (happiness >= 10) {
+        disableStuffedAnimalBtn();
+        disableColoringBookBtn();
+    } else {
+        enableStuffedAnimalBtn();
+        enableColoringBookBtn();
+    }
+};
 
+setInterval(() => {
+    checkHappiness();
+}, 1000);
+
+//hide/show settings
 const showFoodOptions = () => {
     disableFoodOptionsBtn();
     foodOptionsBtn.classList.add('hidden');
@@ -128,10 +165,23 @@ const showFoodOptions = () => {
     cerealBtn.classList.remove('hidden');
 };
 
+const showHappinessOptions = () => {
+    disableHappinessOptionsBtn();
+    happinessOptionsBtn.classList.add('hidden');
+    stuffedAnimalBtn.classList.remove('hidden');
+    coloringBookBtn.classList.remove('hidden');
+};
+
 const showAllOptions = () => {
     foodOptionsBtn.classList.remove('hidden');
     cookieBtn.classList.add('hidden');
     cerealBtn.classList.add('hidden');
+    happinessOptionsBtn.classList.remove('hidden');
+    stuffedAnimalBtn.classList.add('hidden');
+    coloringBookBtn.classList.add('hidden');
+    // funOptionsBtn.classList.remove('hidden');
+    // stuffedAnimalBtn.classList.add('hidden');
+    // coloringBookBtn.classList.add('hidden');
 }
 
 //increments hunger down on a 6 second timer using a random integer between 1-3
@@ -151,6 +201,7 @@ const lowerHunger = () => {
             stopHungerTimer();
             disableFoodOptionsBtn();
             hungerDisplay.classList.add('hidden');
+            happinessDisplay.classList.add('hidden');
             retryBtn.classList.remove('hidden');
             foodOptionsBtn.classList.add('hidden');
             //when player loses, don't run anything else below
@@ -161,9 +212,44 @@ const lowerHunger = () => {
         if (hunger < 10) {
             enableFoodOptionsBtn();
         }
+    }, 10000);
+};
+
+const lowerHappiness = () => {
+    happinessTimerInterval = setInterval(() => {
+        //grab random integer first
+        let randomInteger = Math.floor(Math.random() * 3) + 1;
+        happiness = happiness - randomInteger;
+        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+
+        if (happiness <= 0) {
+            //keep hunger at 0
+            happiness = 0;
+            lossMsg();
+            retryBtn.classList.remove('hidden');
+            //add loss() to switch to sleeping class png
+            stopDayTimer();
+            stopHungerTimer();
+            stopHappinessTimer();
+
+            disableFoodOptionsBtn();
+            disableHappinessOptionsBtn();
+
+            hungerDisplay.classList.add('hidden');
+            foodOptionsBtn.classList.add('hidden');
+            happinessOptionsBtn.classList.add('hidden');
+            //when player loses, don't run anything else below
+            return;
+            //TO DO: trigger sleeping class
+        }
+
+        if (happiness < 10) {
+            enableHappinessOptionsBtn();
+        }
     }, 6000);
 };
 
+//food
 const addCookie = () => {
     //need to have this function check the hunger value, so if hunger changes, this logic is rechecked
     checkHunger();
@@ -199,6 +285,41 @@ const addCereal = () => {
     showAllOptions();
 };
 
+//toys
+const addStuffedAnimal = () => {
+    checkHappiness();
+    
+    if (happiness + stuffedAnimal <= 10) {
+        happiness += stuffedAnimal;
+        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    }
+
+    if (happiness + stuffedAnimal > 10) {
+        happiness = 10;
+        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    };
+
+    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    showAllOptions();
+};
+
+const addColoringBook = () => {
+    checkHappiness();
+    
+    if (happiness + coloringBook <= 10) {
+        happiness += coloringBook;
+        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    }
+
+    if (happiness + coloringBook > 10) {
+        happiness = 10;
+        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    };
+
+    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    showAllOptions();
+};
+
 // ======================================================================================================
 
 const nextDay = () => {
@@ -225,6 +346,7 @@ const retry = () => {
 
 const resetDay = () => {
     hunger = 10;
+    happiness = 10;
 
     timerDisplay.innerHTML = `Day ${day}:`;
     dayTimer();
@@ -233,14 +355,21 @@ const resetDay = () => {
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     lowerHunger();
 
-    continueBtn.classList.add('hidden');
-    retryBtn.classList.add('hidden');
-
     foodOptionsBtn.classList.remove('hidden');
     cookieBtn.classList.add('hidden');
     cerealBtn.classList.add('hidden');
 
-    //reset happiness
+    happinessDisplay.classList.remove('hidden');
+    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    lowerHappiness();
+
+    happinessOptionsBtn.classList.remove('hidden');
+    stuffedAnimalBtn.classList.add('hidden');
+    coloringBookBtn.classList.add('hidden');
+
+    continueBtn.classList.add('hidden');
+    retryBtn.classList.add('hidden');
+
     //reset fun
     //change to idle png class
 };
@@ -257,10 +386,11 @@ const resetDay = () => {
 // =======================================================================================================
 
 //button controls
+
+//food toggles
 const disableFoodOptionsBtn = () => {
     foodOptionsBtn.disabled = true;
 };
-
 const enableFoodOptionsBtn = () => {
     foodOptionsBtn.disabled = false;
 };
@@ -268,7 +398,6 @@ const enableFoodOptionsBtn = () => {
 const disableCookieBtn = () => {
     cookieBtn.disabled = true;
 };
-
 const enableCookieBtn = () => {
     cookieBtn.disabled = false;
 };
@@ -276,9 +405,30 @@ const enableCookieBtn = () => {
 const disableCerealBtn = () => {
     cerealBtn.disabled = true;
 };
-
 const enableCerealBtn = () => {
     cerealBtn.disabled = false;
+};
+
+//happiness toggles
+const disableHappinessOptionsBtn = () => {
+    happinessOptionsBtn.disabled = true;
+};
+const enableHappinessOptionsBtn = () => {
+    happinessOptionsBtn.disabled = false;
+};
+
+const disableStuffedAnimalBtn = () => {
+    stuffedAnimalBtn.disabled = true;
+};
+const enableStuffedAnimalBtn = () => {
+    stuffedAnimalBtn.disabled = false;
+};
+
+const disableColoringBookBtn = () => {
+    coloringBookBtn.disabled = true;
+};
+const enableColoringBookBtn = () => {
+    coloringBookBtn.disabled = false;
 };
 
 // ========================================================================================================
@@ -290,9 +440,9 @@ cerealBtn.addEventListener("click", addCereal);
 continueBtn.addEventListener("click", nextDay);
 retryBtn.addEventListener("click", retry);
 
-happyOptionsBtn.addEventListener("click", showHappyOptions);
-// buildingBlocksBtn.addEventListener("click", addBuildingBlocks);
-// coloringBookBtn.addEventListener("click", addColoringBook);
+happinessOptionsBtn.addEventListener("click", showHappinessOptions);
+stuffedAnimalBtn.addEventListener("click", addStuffedAnimal);
+coloringBookBtn.addEventListener("click", addColoringBook);
 
 //=========================================================================================================
 
@@ -302,9 +452,11 @@ window.onload = () => {
     //binding timer to start onload
     dayTimer();
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    // hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     timerDisplay.innerHTML = `Day 1:`;
     lowerHunger();
-    //start lowering happiness
+    lowerHappiness();
     //start lowering fun
 };
 

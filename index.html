@@ -1,29 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <script defer src="./js/app.js" type="module"></script>
     <script defer src="./js/data.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+
     <title>Document</title>
 </head>
+
 <body>
-    <p id="timerDisplay"></p>
-    <p id="hungerDisplay"></p>
-    <button class="hidden" id="retryBtn">Retry</button>
-    <button class="hidden" id="continueBtn">Continue</button>
-    <button id="foodOptionsBtn">Feed</button>
-    <button class="hidden" id="cookieBtn">Cookie</button>
-    <button class="hidden" id="cerealBtn">Cereal</button>
-    <p id="happinessDisplay"></p>
-    <button id="happyOptionsBtn">Gift</button>
-    <button class="hidden" id="stuffedAnimalBtn">Stuffed Animal</button>
-    <button class="hidden" id="coloringBookBtn">Coloring Book</button>
-    <p id="funDisplay">Fun</p>
-    <button id="funOptionsBtn">Play</button>
-    <button class="hidden" id="trampolineBtn">Trampoline</button>
-    <button class="hidden" id="baseballSetBtn">Baseball Set</button>
-    
+    <nav>
+        <p id="timerDisplay"></p>
+    </nav>
+    <aside>Aside</aside>
+    <!-- W3 Schools HTML image maps -->
+    <!-- <area target="" alt="" title="" href="" coords="184,377,19" shape="circle">
+    <area target="" alt="" title="" href="" coords="251,392,18" shape="circle">
+    <area target="" alt="" title="" href="" coords="321,375,20" shape="circle"> -->
+    <map name="device">
+        <area shape="circle" coords="184,377,19" href="https://developer.mozilla.org/docs/Web/JavaScript" target="_blank"
+            alt="JavaScript" />
+        <area shape="circle" coords="251,392,18" href="https://developer.mozilla.org/docs/Web/CSS" target="_blank"
+            alt="CSS" />
+        <area shape="circle" coords="321,375,20" href="https://developer.mozilla.org/docs/Web/CSS" target="_blank"
+            alt="CSS" />
+    </map>
+    <main>
+        <img usemap="#device" id="device-png" src="/img/device.png">
+        <p id="hungerDisplay"></p>
+        <button class="hidden" id="retryBtn">Retry</button>
+        <button class="hidden" id="continueBtn">Continue</button>
+        <button id="foodOptionsBtn">Feed</button>
+        <button class="hidden" id="cookieBtn">Cookie</button>
+        <button class="hidden" id="cerealBtn">Cereal</button>
+        <p id="happinessDisplay"></p>
+        <button id="happyOptionsBtn">Gift</button>
+        <button class="hidden" id="stuffedAnimalBtn">Stuffed Animal</button>
+        <button class="hidden" id="coloringBookBtn">Coloring Book</button>
+        <p id="funDisplay">Fun</p>
+        <button id="funOptionsBtn">Play</button>
+        <button class="hidden" id="trampolineBtn">Trampoline</button>
+        <button class="hidden" id="baseballSetBtn">Baseball Set</button>
+    </main>
+    <aside>Aside</aside>
+    <footer>made by sera de la rosa</footer>
 </body>
+
 </html>

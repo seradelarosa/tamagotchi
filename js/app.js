@@ -595,15 +595,16 @@ baseballSetBtn.addEventListener("click", addBaseballSet);
 //from MDN web docs window.onload
 window.onload = () => {
     //binding timer to start onload
-    dayTimer();
+    imageMapResize();
+    // dayTimer();
     hungerDisplay.innerHTML = `Hunger: ${hunger}`;
     happinessDisplay.innerHTML = `Happiness: ${happiness}`;
     funDisplay.innerHTML = `Fun: ${fun}`;
     
     timerDisplay.innerHTML = `Day 1:`;
-    lowerHunger();
-    lowerHappiness();
-    lowerFun();
+    // lowerHunger();
+    // lowerHappiness();
+    // lowerFun();
 };
 
 // restartDay()

@@ -222,7 +222,7 @@ const lowerHunger = () => {
         //grab random integer first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         hunger = hunger - randomInteger;
-        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+        hungerDisplay.innerHTML = `${hunger} <br> hunger`;
 
         if (hunger <= 0) {
             //keep hunger at 0
@@ -259,7 +259,7 @@ const lowerHappiness = () => {
         //grab random integer first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         happiness = happiness - randomInteger;
-        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+        happinessDisplay.innerHTML = `${happiness} <br> happiness`;
 
         if (happiness <= 0) {
             //keep hunger at 0
@@ -295,7 +295,7 @@ const lowerFun = () => {
         //grab random integer first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         fun = fun - randomInteger;
-       funDisplay.innerHTML = `Fun: ${fun}`;
+       funDisplay.innerHTML = `${fun} <br> fun`;
 
         if (fun <= 0) {
             //keep hunger at 0
@@ -334,15 +334,15 @@ const addCookie = () => {
     
     if (hunger + cookie <= 10) {
         hunger += cookie;
-        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+        hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     }
 
     if (hunger + cookie > 10) {
         hunger = 10;
-        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+        hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     };
 
-    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     showAllOptions();
 };
 
@@ -351,15 +351,15 @@ const addCereal = () => {
     
     if (hunger + cereal <= 10) {
         hunger += cereal;
-        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+        hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     }
 
     if (hunger + cereal > 10) {
         hunger = 10;
-        hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+        hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     };
 
-    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     showAllOptions();
 };
 
@@ -369,15 +369,15 @@ const addStuffedAnimal = () => {
     
     if (happiness + stuffedAnimal <= 10) {
         happiness += stuffedAnimal;
-        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+        happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     }
 
     if (happiness + stuffedAnimal > 10) {
         happiness = 10;
-        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+        happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     };
 
-    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     showAllOptions();
 };
 
@@ -386,15 +386,15 @@ const addColoringBook = () => {
     
     if (happiness + coloringBook <= 10) {
         happiness += coloringBook;
-        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+        happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     }
 
     if (happiness + coloringBook > 10) {
         happiness = 10;
-        happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+        happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     };
 
-    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     showAllOptions();
 };
 
@@ -404,15 +404,15 @@ const addTrampoline = () => {
     
     if (fun + trampoline <= 10) {
         fun += trampoline;
-        funDisplay.innerHTML = `Fun: ${fun}`;
+        funDisplay.innerHTML = `${fun} <br> fun`;
     }
 
     if (fun + trampoline > 10) {
         fun = 10;
-        funDisplay.innerHTML = `Fun: ${fun}`;
+        funDisplay.innerHTML = `${fun} <br> fun`;
     };
 
-    funDisplay.innerHTML = `Fun: ${fun}`;
+    funDisplay.innerHTML = `${fun} <br> fun`;
     showAllOptions();
 };
 
@@ -421,15 +421,15 @@ const addBaseballSet = () => {
     
     if (fun + baseballSet <= 10) {
         fun += baseballSet;
-        funDisplay.innerHTML = `Fun: ${fun}`;
+        funDisplay.innerHTML = `${fun} <br> fun`;
     }
 
     if (fun + baseballSet > 10) {
         fun = 10;
-        funDisplay.innerHTML = `Fun: ${fun}`;
+        funDisplay.innerHTML = `${fun} <br> fun`;
     };
 
-    funDisplay.innerHTML = `Fun: ${fun}`;
+    funDisplay.innerHTML = `${fun} <br> fun`;
     showAllOptions();
 };
 // ======================================================================================================
@@ -465,7 +465,7 @@ const resetDay = () => {
     dayTimer();
 
     hungerDisplay.classList.remove('hidden');
-    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
+    hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     lowerHunger();
 
     foodOptionsBtn.classList.remove('hidden');
@@ -473,7 +473,7 @@ const resetDay = () => {
     cerealBtn.classList.add('hidden');
 
     happinessDisplay.classList.remove('hidden');
-    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
+    happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     lowerHappiness();
 
     happinessOptionsBtn.classList.remove('hidden');
@@ -481,7 +481,7 @@ const resetDay = () => {
     coloringBookBtn.classList.add('hidden');
 
     funDisplay.classList.remove('hidden');
-    funDisplay.innerHTML = `Fun: ${fun}`;
+    funDisplay.innerHTML = `${fun} <br> fun`;
     lowerFun();
 
     funOptionsBtn.classList.remove('hidden');
@@ -612,7 +612,7 @@ window.onload = () => {
     imageMapResize();
     // dayTimer();
     hungerDisplay.innerHTML = `${hunger} <br> hunger`;
-    happinessDisplay.innerHTML = `${happiness} <br> happiness `;
+    happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     funDisplay.innerHTML = `${fun} <br> fun`;
     
     timerDisplay.innerHTML = `Day 1:`;

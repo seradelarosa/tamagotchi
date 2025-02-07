@@ -94,7 +94,7 @@ nav {
 #funDisplay {
     font-family: "Tiny5", serif;
     font-size: clamp(12px, 1.3vw, 24px);
-    z-index: 2;
+    z-index: 0;
     background-color: rgba(128, 128, 128, 0.823);
     color: white;
     text-align: center;
@@ -122,10 +122,9 @@ nav {
     display: flex;
     justify-content: center;
     gap: 10px;
-    z-index: 2;
+    z-index: 0;
     font-family: "Tiny5", serif;
     font-size: clamp(12px, 1.3vw, 24px);
-    z-index: 2;
     background-color: rgba(128, 128, 128, 0.823);
     color: white;
     text-align: center;

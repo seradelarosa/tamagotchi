@@ -109,6 +109,8 @@ const dayTimer = () => {
             stopDayTimer();
             continueBtn.classList.remove('hidden');
 
+            updateActionsOptions();
+
             foodOptionsBtn.classList.add('hidden');
             disableFoodOptionsBtn();
             stopHungerTimer();
@@ -240,6 +242,7 @@ const lowerHunger = () => {
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
+            updateActionsOptions();
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
@@ -276,6 +279,7 @@ const lowerHappiness = () => {
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
+            updateActionsOptions();
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
@@ -313,6 +317,7 @@ const lowerFun = () => {
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
+            updateActionsOptions();
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
@@ -469,6 +474,8 @@ const resetDay = () => {
     happiness = 10;
     fun = 10;
 
+    updateActionsOptions();
+
     timerDisplay.innerHTML = `Day ${day}:`;
     dayTimer();
 
@@ -604,8 +611,12 @@ cerealBtn.addEventListener("click", function (event) {
     updateActionsOptions();
 });
 
-continueBtn.addEventListener("click", nextDay);
-retryBtn.addEventListener("click", retry);
+continueBtn.addEventListener("click", function (event) {
+    nextDay();
+});
+retryBtn.addEventListener("click", function (event) {
+    retry();
+});
 
 happinessOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();

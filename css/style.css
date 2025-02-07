@@ -3,7 +3,7 @@ body {
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr 8fr 1fr;
-    grid-template-areas: 
+    grid-template-areas:
         "nav nav nav"
         "aside-left main aside-right"
         "footer footer footer";
@@ -27,23 +27,82 @@ aside:last-of-type {
 nav {
     grid-area: nav;
     background-color: yellow;
-    height: 60px;
     display: flex;
     justify-content: center;
 }
 
 main {
-    position: relative;
-    display: flex;
-    background-color: pink;
     grid-area: main;
-    /* background-image: url("/img/device.png"); */
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 80vh;
-    justify-content: center;
+    position: relative;
+    background-color: pink;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        ". . ."
+        ". screen ."
+        ". . .";
+    justify-items: center;
     align-items: center;
+}
+
+#screen {
+    position: absolute;
+    grid-area: screen;
+    display: grid;
+    background-color: white;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-areas:
+        "hunger happiness fun"
+        ". . ."
+        "buttons buttons buttons";
+    justify-items: center;
+    align-items: center;
+    top: -50px;
+    left: 4px;
+    height: 113%;
+    width: 100%;
+
+}
+
+#hungerDisplay,
+#happinessDisplay,
+#funDisplay {
+    font-size: clamp(12px, 1.3vw, 24px);
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+}
+
+#hungerDisplay {
+    grid-area: hunger;
+}
+
+#happinessDisplay {
+    grid-area: happiness;
+}
+
+#funDisplay {
+    grid-area: fun;
+}
+
+#device-png {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+}
+
+#otherBtns {
+    grid-area: buttons;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 2;
 }
 
 footer {
@@ -55,35 +114,91 @@ footer {
     display: none;
 }
 
-#device-png {
-    max-width: 100%;
-    object-fit: contain;
+/*Mobile Portrait*/
+@media only screen and (min-width: 600px) and (max-width: 698px) {
+    #screen {
+        top: 20px;
+        left: -6px;
+        height: 70%;
+        width: 112%;
+    }
 }
 
-p {
-    position: absolute;
-    transform: translate(-50%, -50%);
+@media only screen and (min-width: 699px) and (max-width: 798px) {
+    #screen {
+        top: -12px;
+        left: -6px;
+        height: 90%;
+        width: 112%;
+    }
 }
 
-button {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
+@media only screen and (min-width: 799px) and (max-width: 898px) {
+    #screen {
+        top: -34px;
+        left: -6px;
+        height: 104%;
+        width: 112%;
+    }
 }
 
-#foodOptionsBtn {
-    top: 65%;
-    left: 30%;
+@media only screen and (min-width: 899px) and (max-width: 999px) {
+    #screen {
+        top: -50px;
+        left: -6px;
+        height: 113%;
+        width: 112%;
+    }
+}
+/*Tablet Landscape or smaller Mobile Landscape*/
+@media only screen and (min-width: 1000px) and (max-width: 1124px) {
+    #screen {
+        top: -50px;
+        left: 0px;
+        height: 113%;
+        width: 110%;
+    }
 }
 
-#happyOptionsBtn {
-    top: 65%;
+@media only screen and (min-width: 1125px) and (max-width: 1239px) {
+    #screen {
+        top: -50px;
+        left: 14px;
+        height: 113%;
+        width: 94%;
+    }
 }
 
-#funOptionsBtn {
-    top: 65%;
-    left: 70%;
+@media only screen and (min-width: 1240px) and (max-width: 1339px) {
+    #screen {
+        top: -50px;
+        left: 30px;
+        height: 113%;
+        width: 85%;
+    }
 }
+
+/*Desktop*/
+@media only screen and (min-width: 1340px) and (max-width: 1440px) {
+    #screen {
+        top: -50px;
+        left: 46px;
+        height: 113%;
+        width: 81%;
+    }
+}
+
+/*Large Desktop or TV*/
+@media only screen and (min-width: 1441px) {
+    #screen {
+        top: -50px;
+        left: 55px;
+        height: 113%;
+        width: 77%;
+    }
+}
+
+
 
 /* Use CSS grid to position display and PNGs */
 
@@ -102,4 +217,3 @@ button {
 /* bored */
 
 /* sleeping */
-

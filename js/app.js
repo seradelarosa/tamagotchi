@@ -14,7 +14,9 @@ import { exerciseEquipment } from './data.js';
 import { currentDay } from './data.js';
 
 //cached elements
-const foodOptionsBtn = document.querySelector("#foodOptionsBtn");
+// const foodOptionsBtn = document.querySelector("#foodOptionsBtn");
+const foodOptionsBtn = document.getElementById("foodOptionsBtn");
+
 const happinessOptionsBtn = document.querySelector("#happyOptionsBtn");
 const funOptionsBtn = document.querySelector("#funOptionsBtn");
 const timerDisplay = document.querySelector('#timerDisplay');
@@ -574,7 +576,11 @@ const enableBaseballSetBtn = () => {
 
 // ========================================================================================================
 
-foodOptionsBtn.addEventListener("click", showFoodOptions);
+foodOptionsBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    showFoodOptions();
+});
+
 cookieBtn.addEventListener("click", addCookie);
 cerealBtn.addEventListener("click", addCereal);
 
@@ -597,9 +603,9 @@ window.onload = () => {
     //binding timer to start onload
     imageMapResize();
     // dayTimer();
-    hungerDisplay.innerHTML = `Hunger: ${hunger}`;
-    happinessDisplay.innerHTML = `Happiness: ${happiness}`;
-    funDisplay.innerHTML = `Fun: ${fun}`;
+    hungerDisplay.innerHTML = `${hunger} <br> hunger`;
+    happinessDisplay.innerHTML = `${happiness} <br> happiness `;
+    funDisplay.innerHTML = `${fun} <br> fun`;
     
     timerDisplay.innerHTML = `Day 1:`;
     // lowerHunger();

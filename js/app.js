@@ -587,11 +587,19 @@ cerealBtn.addEventListener("click", addCereal);
 continueBtn.addEventListener("click", nextDay);
 retryBtn.addEventListener("click", retry);
 
-happinessOptionsBtn.addEventListener("click", showHappinessOptions);
+happinessOptionsBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    showHappinessOptions();
+});
+
 stuffedAnimalBtn.addEventListener("click", addStuffedAnimal);
 coloringBookBtn.addEventListener("click", addColoringBook);
 
-funOptionsBtn.addEventListener("click", showFunOptions);
+funOptionsBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    showFunOptions();
+});
+
 trampolineBtn.addEventListener("click", addTrampoline);
 baseballSetBtn.addEventListener("click", addBaseballSet);
 

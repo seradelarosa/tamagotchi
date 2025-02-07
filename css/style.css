@@ -56,7 +56,7 @@ main {
     grid-template-areas:
         "hunger happiness fun"
         ". . ."
-        "buttons buttons buttons";
+        "actions actions actions";
     justify-items: center;
     align-items: center;
     top: -50px;
@@ -69,7 +69,7 @@ main {
 #hungerDisplay,
 #happinessDisplay,
 #funDisplay {
-    font-size: clamp(12px, 1.3vw, 24px);
+    font-size: clamp(12px, 1vw, 24px);
     position: absolute;
     text-align: center;
     z-index: 2;
@@ -97,8 +97,8 @@ main {
     z-index: 1;
 }
 
-#otherBtns {
-    grid-area: buttons;
+#actions {
+    grid-area: actions;
     display: flex;
     justify-content: center;
     gap: 10px;

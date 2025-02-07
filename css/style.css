@@ -42,11 +42,32 @@ main {
     grid-template-areas:
         "hunger happiness fun"
         ". . ."
-        "actions actions actions";
+        "feed play exercise";
     justify-items: center;
     align-items: center;
     height: 100%;
     width: 100%;
+}
+
+.actions-active {
+    grid-template-areas:
+        "hunger happiness fun"
+        ". . ."
+        "actions actions actions" !important;
+}
+
+/* Hide labels when switching to actions */
+.actions-active #feed-label,
+.actions-active #play-label,
+.actions-active #exercise-label {
+    display: none;
+}
+
+/* Ensure new actions are shown */
+.actions-active #actions {
+    display: flex;  /* Change to flexbox for button layout */
+    gap: 10px;
+    justify-content: center;
 }
 
 aside:first-of-type {
@@ -94,6 +115,40 @@ nav {
     grid-area: fun;
 }
 
+#feed-label,
+#play-label,
+#exercise-label {
+    grid-area: actions;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 2;
+    font-family: "Tiny5", serif;
+    font-size: clamp(12px, 1.3vw, 24px);
+    z-index: 2;
+    background-color: rgba(128, 128, 128, 0.823);
+    color: white;
+    text-align: center;
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#feed-label {
+    grid-area: feed;
+    
+}
+
+#play-label {
+    grid-area: play;
+    
+}
+
+#exercise-label {
+    grid-area: exercise;
+    
+}
+
 #device-png {
     position: absolute;
     top: 0;
@@ -110,7 +165,6 @@ nav {
     justify-content: center;
     gap: 10px;
     z-index: 2;
-    background-color: gray;
 }
 
 footer {
@@ -123,7 +177,7 @@ footer {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /*Mobile Portrait*/

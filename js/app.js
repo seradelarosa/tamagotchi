@@ -14,11 +14,12 @@ import { exerciseEquipment } from './data.js';
 import { currentDay } from './data.js';
 
 //cached elements
-// const foodOptionsBtn = document.querySelector("#foodOptionsBtn");
 const foodOptionsBtn = document.getElementById("foodOptionsBtn");
 
-const happinessOptionsBtn = document.querySelector("#happyOptionsBtn");
+const happinessOptionsBtn = document.querySelector("#happinessOptionsBtn");
 const funOptionsBtn = document.querySelector("#funOptionsBtn");
+
+
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
 const happinessDisplay = document.querySelector('#happinessDisplay');
@@ -35,6 +36,13 @@ const coloringBookBtn = document.querySelector("#coloringBookBtn");
 
 const trampolineBtn = document.querySelector("#trampolineBtn");
 const baseballSetBtn = document.querySelector("#baseballSetBtn");
+
+//labels
+const feedLabel = document.querySelector("#feed-label");
+const playLabel = document.querySelector("#play-label");
+const exerciseLabel = document.querySelector("#exercise-label");
+
+const screen = document.querySelector("#screen");
 
 //bring in currentDay value (1)
 let day = currentDay.day;
@@ -574,34 +582,60 @@ const enableBaseballSetBtn = () => {
     baseballSetBtn.disabled = false;
 };
 
+const updateActionsOptions = () => {
+    screen.classList.toggle("actions-active");
+};
+
+
 // ========================================================================================================
 
 foodOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    updateActionsOptions();
     showFoodOptions();
 });
 
-cookieBtn.addEventListener("click", addCookie);
-cerealBtn.addEventListener("click", addCereal);
+cookieBtn.addEventListener("click", function (event) {
+    addCookie();
+    updateActionsOptions();
+});
+cerealBtn.addEventListener("click", function (event) {
+    addCereal();
+    updateActionsOptions();
+});
 
 continueBtn.addEventListener("click", nextDay);
 retryBtn.addEventListener("click", retry);
 
 happinessOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    updateActionsOptions();
     showHappinessOptions();
 });
 
-stuffedAnimalBtn.addEventListener("click", addStuffedAnimal);
-coloringBookBtn.addEventListener("click", addColoringBook);
+stuffedAnimalBtn.addEventListener("click", function (event) {
+    addStuffedAnimal();
+    updateActionsOptions();
+});
+coloringBookBtn.addEventListener("click", function (event) {
+    addColoringBook();
+    updateActionsOptions();
+});
 
 funOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    updateActionsOptions();
     showFunOptions();
 });
 
-trampolineBtn.addEventListener("click", addTrampoline);
-baseballSetBtn.addEventListener("click", addBaseballSet);
+trampolineBtn.addEventListener("click", function (event) {
+    addTrampoline();
+    updateActionsOptions();
+});
+baseballSetBtn.addEventListener("click", function (event) {
+    addBaseballSet();
+    updateActionsOptions();
+});
 
 //=========================================================================================================
 
@@ -610,15 +644,15 @@ baseballSetBtn.addEventListener("click", addBaseballSet);
 window.onload = () => {
     //binding timer to start onload
     imageMapResize();
-    // dayTimer();
+    dayTimer();
     hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     happinessDisplay.innerHTML = `${happiness} <br> happiness`;
     funDisplay.innerHTML = `${fun} <br> fun`;
     
     timerDisplay.innerHTML = `Day 1:`;
-    // lowerHunger();
-    // lowerHappiness();
-    // lowerFun();
+    lowerHunger();
+    lowerHappiness();
+    lowerFun();
 };
 
 // restartDay()

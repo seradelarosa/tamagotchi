@@ -9,8 +9,8 @@
     <script defer src="./js/data.js" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
 
     <title>Document</title>
 </head>
@@ -22,17 +22,17 @@
     <aside></aside>
     <!-- W3 Schools HTML image maps -->
     <map name="device">
-        <area shape="circle" id="foodOptionsBtn" coords="184,377,19" href="#" alt="JavaScript" />
-        <area shape="circle" id="happyOptionsBtn" coords="251,392,18" href="#" target="_blank" alt="CSS" />
-        <area shape="circle" id="funOptionsBtn" coords="321,375,20" href="#" target="_blank" alt="CSS" />
+        <area shape="circle" id="foodOptionsBtn" coords="184,377,19" href="#" alt="" />
+        <area shape="circle" id="happinessOptionsBtn" coords="251,392,18" href="#" target="_blank" alt="" />
+        <area shape="circle" id="funOptionsBtn" coords="321,375,20" href="#" target="_blank" alt="" />
     </map>
     <main>
         <img usemap="#device" id="device-png" src="/img/device.png">
         <div id="screen">
 
-                <p id="hungerDisplay"></p>
-                <p id="happinessDisplay"></p>
-                <p id="funDisplay">Fun</p>
+            <p id="hungerDisplay"></p>
+            <p id="happinessDisplay"></p>
+            <p id="funDisplay"></p>
 
             <div id="actions">
                 <button class="hidden" id="retryBtn">Retry</button>
@@ -47,6 +47,9 @@
                 <button class="hidden" id="trampolineBtn">Trampoline</button>
                 <button class="hidden" id="baseballSetBtn">Baseball Set</button>
             </div>
+            <p id="feed-label">Feed</p>
+            <p id="play-label">Play</p>
+            <p id="exercise-label">Exercise</p>
         </div>
     </main>
     <aside></aside>

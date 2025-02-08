@@ -41,7 +41,7 @@ main {
     grid-template-rows: 1fr 4fr 1fr;
     grid-template-areas:
         "hunger happiness fun"
-        ". . ."
+        ". tamagotchi ."
         "feed play exercise";
     justify-items: center;
     align-items: center;
@@ -52,7 +52,7 @@ main {
 .actions-active {
     grid-template-areas:
         "hunger happiness fun"
-        ". . ."
+        ". tamagotchi ."
         "actions actions actions" !important;
 }
 
@@ -175,6 +175,17 @@ footer {
     padding: 15px;
 }
 
+button {
+    font-family: "Tiny5", serif;
+    border-radius: 0;
+    background-color: pink;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
 .hidden {
     display: none !important;
 }
@@ -263,22 +274,48 @@ footer {
     }
 }
 
+/* Tama toggles */
+.idle {
+    grid-area: tamagotchi;
+    background-image: url(/img/tama/idle.png);
+    background-size: contain; /* or cover */
+    background-repeat: no-repeat;
+    width: 75px;
+    height: 75px;
+}
 
+.eating {
+    grid-area: tamagotchi;
+    background-image: url(/img/tama/eating.png); 
+    background-size: contain; /* or cover */
+    background-repeat: no-repeat;
+    width: 75px;
+    height: 75px;
+}
 
-/* Use CSS grid to position display and PNGs */
+.excited {
+    grid-area: tamagotchi;
+    background-image: url(/img/tama/excited.png); 
+    background-size: contain; /* or cover */
+    background-repeat: no-repeat;
+    width: 75px;
+    height: 75px;
+}
 
-/* need to make a button disabler */
+.happy{
+    grid-area: tamagotchi;
+    background-image: url(/img/tama/happy.png); 
+    background-size: contain; /* or cover */
+    background-repeat: no-repeat;
+    width: 75px;
+    height: 75px;
+}
 
-
-/* PNGs and transform "motion" that we can switch between */
-/* idle */
-
-/* eating */
-
-/* starving */
-
-/* playing */
-
-/* bored */
-
-/* sleeping */
+.sleeping {
+    grid-area: tamagotchi;
+    background-image: url(/img/tama/sleeping.png); 
+    background-size: contain; /* or cover */
+    background-repeat: no-repeat;
+    width: 75px;
+    height: 75px;
+}

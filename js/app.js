@@ -1,9 +1,5 @@
 //KNOWN BUGS
-//when continue is selected, hide ontinue btn
-
-//NEXT STEPS: 2/2
-//define loss()
-//change to sleeping via CSS class change
+//when a value reachs 0 OR timer reaches 0 while an option menu is open, loss mechanic goes wonky with options open
 
 // ============================================================================================================================
 
@@ -241,6 +237,7 @@ const lowerHunger = () => {
             updateActionsOptions();
             console.log("hungertimer");
             lossMsg();
+            sleeping();
             retryBtn.classList.remove('hidden');
             //add loss() to switch to sleeping class png
             stopDayTimer();
@@ -284,6 +281,7 @@ const lowerHappiness = () => {
             console.log("happinesstimer");
             updateActionsOptions();
             lossMsg();
+            sleeping();
             retryBtn.classList.remove('hidden');
             //add loss() to switch to sleeping class png
             stopDayTimer();
@@ -326,6 +324,7 @@ const lowerFun = () => {
             fun = 0;
             console.log("funtimer");
             updateActionsOptions();
+            sleeping();
             lossMsg();
             retryBtn.classList.remove('hidden');
             //add loss() to switch to sleeping class png
@@ -522,9 +521,8 @@ const resetDay = () => {
     retryBtn.classList.add('hidden');
 
     updateActionsOptions();
-
-    //reset fun
-    //change to idle png class
+    awake();    
+   
 };
 
 
@@ -610,6 +608,111 @@ const updateActionsOptions = () => {
     screen.classList.toggle("actions-active");
 };
 
+// ==================================================
+
+//Animations
+const eatingAnimation = () => {
+    let tamagotchi = document.getElementById("tamagotchi");
+    let isIdle = false;
+    let intervalCount = 0;
+
+    // start toggling
+    let interval = setInterval(() => {
+        if (isIdle) {
+            tamagotchi.classList.add("eating");
+            tamagotchi.classList.remove("idle");
+        } else {
+            tamagotchi.classList.add("idle");
+            tamagotchi.classList.remove("eating");
+        }
+
+        // toggle state
+        isIdle = !isIdle; 
+        intervalCount++;
+
+        // stop after 3 seconds
+        if (intervalCount >= 6) {
+            clearInterval(interval);
+            // ensure toggling ends on "idle"
+            tamagotchi.classList.add("idle");
+            tamagotchi.classList.remove("eating");
+        }
+    }, 500);
+}
+
+const happyAnimation = () => {
+    let tamagotchi = document.getElementById("tamagotchi");
+    let isIdle = false;
+    let intervalCount = 0;
+
+    // start toggling
+    let interval = setInterval(() => {
+        if (isIdle) {
+            tamagotchi.classList.add("happy");
+            tamagotchi.classList.remove("idle");
+        } else {
+            tamagotchi.classList.add("idle");
+            tamagotchi.classList.remove("happy");
+        }
+
+        // toggle state
+        isIdle = !isIdle; 
+        intervalCount++;
+
+        // stop after 3 seconds
+        if (intervalCount >= 6) {
+            clearInterval(interval);
+            // ensure toggling ends on "idle"
+            tamagotchi.classList.add("idle");
+            tamagotchi.classList.remove("happy");
+        }
+    }, 500);
+}
+
+const excitedAnimation = () => {
+    let tamagotchi = document.getElementById("tamagotchi");
+    let isIdle = false;
+    let intervalCount = 0;
+
+    // start toggling
+    let interval = setInterval(() => {
+        if (isIdle) {
+            tamagotchi.classList.add("excited");
+            tamagotchi.classList.remove("idle");
+        } else {
+            tamagotchi.classList.add("idle");
+            tamagotchi.classList.remove("excited");
+        }
+
+        // toggle state
+        isIdle = !isIdle; 
+        intervalCount++;
+
+        // stop after 3 seconds
+        if (intervalCount >= 6) {
+            clearInterval(interval);
+            // ensure toggling ends on "idle"
+            tamagotchi.classList.add("idle");
+            tamagotchi.classList.remove("excited");
+        }
+    }, 500);
+}
+
+const sleeping = () => {
+    let tamagotchi = document.getElementById("tamagotchi");
+
+    tamagotchi.classList = "";
+    tamagotchi.classList.add("sleeping");
+};
+
+const awake = () => {
+    let tamagotchi = document.getElementById("tamagotchi");
+
+    tamagotchi.classList = "";
+    tamagotchi.classList.add("idle");
+};
+
+
 
 // ========================================================================================================
 
@@ -620,10 +723,12 @@ foodOptionsBtn.addEventListener("click", function (event) {
 });
 
 cookieBtn.addEventListener("click", function (event) {
+    eatingAnimation();
     addCookie();
     updateActionsOptions();
 });
 cerealBtn.addEventListener("click", function (event) {
+    eatingAnimation();
     addCereal();
     updateActionsOptions();
 });
@@ -642,10 +747,12 @@ happinessOptionsBtn.addEventListener("click", function (event) {
 });
 
 stuffedAnimalBtn.addEventListener("click", function (event) {
+    happyAnimation();
     addStuffedAnimal();
     updateActionsOptions();
 });
 coloringBookBtn.addEventListener("click", function (event) {
+    happyAnimation();
     addColoringBook();
     updateActionsOptions();
 });
@@ -657,10 +764,12 @@ funOptionsBtn.addEventListener("click", function (event) {
 });
 
 trampolineBtn.addEventListener("click", function (event) {
+    excitedAnimation();
     addTrampoline();
     updateActionsOptions();
 });
 baseballSetBtn.addEventListener("click", function (event) {
+    excitedAnimation();
     addBaseballSet();
     updateActionsOptions();
 });

@@ -107,8 +107,9 @@ const dayTimer = () => {
         //TO DO: update to include all variables
         if (timeLeft === 0 && hunger > 0 | timeLeft === 0 && happiness > 0 | timeLeft === 0 &&  fun > 0) {
             stopDayTimer();
+            console.log("daytimer");
+            updateActionsOptions();
             continueBtn.classList.remove('hidden');
-
             updateActionsOptions();
 
             foodOptionsBtn.classList.add('hidden');
@@ -237,12 +238,16 @@ const lowerHunger = () => {
         if (hunger <= 0) {
             //keep hunger at 0
             hunger = 0;
+            updateActionsOptions();
+            console.log("hungertimer");
             lossMsg();
             retryBtn.classList.remove('hidden');
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
-            updateActionsOptions();
+            stopHappinessTimer();
+            stopFunTimer();
+            
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
@@ -255,6 +260,7 @@ const lowerHunger = () => {
             happinessOptionsBtn.classList.add('hidden');
             funOptionsBtn.classList.add('hidden');
             //when player loses, don't run anything else below
+            
             return;
             //TO DO: trigger sleeping class
         }
@@ -273,13 +279,18 @@ const lowerHappiness = () => {
         happinessDisplay.innerHTML = `${happiness} <br> happiness`;
 
         if (happiness <= 0) {
-            //keep hunger at 0
+            //keep happiness at 0
+            happiness = 0;
+            console.log("happinesstimer");
+            updateActionsOptions();
             lossMsg();
             retryBtn.classList.remove('hidden');
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
-            updateActionsOptions();
+            stopHappinessTimer();
+            stopFunTimer();
+
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
@@ -292,6 +303,7 @@ const lowerHappiness = () => {
             happinessOptionsBtn.classList.add('hidden');
             funOptionsBtn.classList.add('hidden');
             //when player loses, don't run anything else below
+            
             return;
             //TO DO: trigger sleeping class
         }
@@ -312,12 +324,16 @@ const lowerFun = () => {
         if (fun <= 0) {
             //keep hunger at 0
             fun = 0;
+            console.log("funtimer");
+            updateActionsOptions();
             lossMsg();
             retryBtn.classList.remove('hidden');
             //add loss() to switch to sleeping class png
             stopDayTimer();
             stopHungerTimer();
-            updateActionsOptions();
+            stopHappinessTimer();
+            stopFunTimer();
+            
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
@@ -330,6 +346,7 @@ const lowerFun = () => {
             happinessOptionsBtn.classList.add('hidden');
             funOptionsBtn.classList.add('hidden');
             //when player loses, don't run anything else below
+            
             return;
             //TO DO: trigger sleeping class
         }
@@ -474,8 +491,6 @@ const resetDay = () => {
     happiness = 10;
     fun = 10;
 
-    updateActionsOptions();
-
     timerDisplay.innerHTML = `Day ${day}:`;
     dayTimer();
 
@@ -505,6 +520,8 @@ const resetDay = () => {
 
     continueBtn.classList.add('hidden');
     retryBtn.classList.add('hidden');
+
+    updateActionsOptions();
 
     //reset fun
     //change to idle png class

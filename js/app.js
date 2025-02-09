@@ -1,5 +1,5 @@
 //KNOWN BUGS
-//when a value reachs 0 OR timer reaches 0 while an option menu is open, loss mechanic goes wonky with options open
+//when a value reaches 0 OR timer reaches 0 while an option menu is open, loss mechanic goes wonky with options open
 
 // ============================================================================================================================
 
@@ -54,13 +54,13 @@ let coloringBook = toys.coloringBook;
 let trampoline = exerciseEquipment.trampoline;
 let baseballSet = exerciseEquipment.baseballSet;
 
-//need to be able to stop the timer from other functions...
-//so countdown must be stored globally so it can be accessed....
-//so each countdown needs to be uniquely named?
+//timers uniquely named and stored globally so it can be accessed/stopped from other functions
 let dayTimerInterval;
 let hungerTimerInterval;
 let happinessTimerInterval;
 let funTimerInterval;
+
+// === win / lose =============================================================================================
 
 const successMsg = () => {
     timerDisplay.innerHTML = "Congrats! You survived the day. Continue?";
@@ -70,7 +70,7 @@ const lossMsg = () => {
     timerDisplay.innerHTML = "Your Tamagotchi fell asleep! Try again?";
 };
 
-// ===============================================================================================================================
+// === day timer ===============================================================================================
 
 //need to be able to stop the timer from other functions
 const stopDayTimer = () => {
@@ -79,8 +79,7 @@ const stopDayTimer = () => {
 
 //1000 milliseconds = 1 second
 const dayTimer = () => {
-    //start timer at 3:00 and have it count down...
-    //every 3 minutes... checkState? If values > 0, winMsg(), nextDay(), if ONE or more values === 0, lossMsg(), restartDay()
+    //start timer at 3:00 and have it count down
     let timeLeft = 180;
 
     //from MDN web docs setInterval
@@ -94,7 +93,6 @@ const dayTimer = () => {
         //update display
         timerDisplay.innerHTML = `Day ${day}: ${minutes}:${seconds}`;
 
-        //TO DO: update to include all variables
         if (timeLeft === 0 && hunger > 0 | timeLeft === 0 && happiness > 0 | timeLeft === 0 &&  fun > 0) {
             stopDayTimer();
             console.log("daytimer");
@@ -123,20 +121,7 @@ const dayTimer = () => {
 
 };
 
-// =======================================================================================================
-
-//timers
-const stopHungerTimer = () => {
-    clearInterval(hungerTimerInterval);
-};
-
-const stopHappinessTimer = () => {
-    clearInterval(happinessTimerInterval);
-}
-
-const stopFunTimer = () => {
-    clearInterval(funTimerInterval);
-};
+// === run checks and keep options updated ======================================================================
 
 //check meters
 const checkHunger = () => {
@@ -181,7 +166,8 @@ setInterval(() => {
     checkFun();
 }, 1000);
 
-//hide/show settings
+// === hide / show settings ================================================================
+
 const showFoodOptions = () => {
     disableFoodOptionsBtn();
     foodOptionsBtn.classList.add('hidden');
@@ -217,10 +203,25 @@ const showAllOptions = () => {
     baseballSetBtn.classList.add('hidden');
 }
 
-//increments hunger down on a 6 second timer using a random integer between 1-3
+// === timers =========================================================================================
+
+//stop timers
+const stopHungerTimer = () => {
+    clearInterval(hungerTimerInterval);
+};
+
+const stopHappinessTimer = () => {
+    clearInterval(happinessTimerInterval);
+}
+
+const stopFunTimer = () => {
+    clearInterval(funTimerInterval);
+};
+
+//increments hunger down on a timer using a random integer between 1-3
 const lowerHunger = () => {
     hungerTimerInterval = setInterval(() => {
-        //grab random integer first
+        //grab random integer to use first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         hunger = hunger - randomInteger;
         hungerDisplay.innerHTML = `${hunger} <br> hunger`;
@@ -228,21 +229,24 @@ const lowerHunger = () => {
         if (hunger <= 0) {
             //keep hunger at 0
             hunger = 0;
+
             updateActionsOptions();
-            console.log("hungertimer");
             lossMsg();
             sleeping();
             retryBtn.classList.remove('hidden');
-            //add loss() to switch to sleeping class png
+            
+            //stop timers
             stopDayTimer();
             stopHungerTimer();
             stopHappinessTimer();
             stopFunTimer();
             
+            //disable buttons
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
 
+            //hide things we can't use
             hungerDisplay.classList.add('hidden');
             happinessDisplay.classList.add('hidden');
             funDisplay.classList.add('hidden');
@@ -250,10 +254,9 @@ const lowerHunger = () => {
             foodOptionsBtn.classList.add('hidden');
             happinessOptionsBtn.classList.add('hidden');
             funOptionsBtn.classList.add('hidden');
+
             //when player loses, don't run anything else below
-            
             return;
-            //TO DO: trigger sleeping class
         }
 
         if (hunger < 10) {
@@ -264,7 +267,7 @@ const lowerHunger = () => {
 
 const lowerHappiness = () => {
     happinessTimerInterval = setInterval(() => {
-        //grab random integer first
+        //grab random integer to use first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         happiness = happiness - randomInteger;
         happinessDisplay.innerHTML = `${happiness} <br> happiness`;
@@ -272,21 +275,24 @@ const lowerHappiness = () => {
         if (happiness <= 0) {
             //keep happiness at 0
             happiness = 0;
-            console.log("happinesstimer");
+
             updateActionsOptions();
             lossMsg();
             sleeping();
             retryBtn.classList.remove('hidden');
-            //add loss() to switch to sleeping class png
+            
+            //stop timers
             stopDayTimer();
             stopHungerTimer();
             stopHappinessTimer();
             stopFunTimer();
 
+            //disable buttons
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
 
+            //hide stuff we can't use
             hungerDisplay.classList.add('hidden');
             happinessDisplay.classList.add('hidden');
             funDisplay.classList.add('hidden');
@@ -294,10 +300,10 @@ const lowerHappiness = () => {
             foodOptionsBtn.classList.add('hidden');
             happinessOptionsBtn.classList.add('hidden');
             funOptionsBtn.classList.add('hidden');
+
             //when player loses, don't run anything else below
-            
             return;
-            //TO DO: trigger sleeping class
+            
         }
 
         if (happiness < 10) {
@@ -308,7 +314,7 @@ const lowerHappiness = () => {
 
 const lowerFun = () => {
     funTimerInterval = setInterval(() => {
-        //grab random integer first
+        //grab random integer to use first
         let randomInteger = Math.floor(Math.random() * 3) + 1;
         fun = fun - randomInteger;
        funDisplay.innerHTML = `${fun} <br> fun`;
@@ -316,21 +322,24 @@ const lowerFun = () => {
         if (fun <= 0) {
             //keep hunger at 0
             fun = 0;
-            console.log("funtimer");
+            
             updateActionsOptions();
             sleeping();
             lossMsg();
             retryBtn.classList.remove('hidden');
-            //add loss() to switch to sleeping class png
+
+            //stop timers
             stopDayTimer();
             stopHungerTimer();
             stopHappinessTimer();
             stopFunTimer();
             
+            //disable buttons
             disableFoodOptionsBtn();
             disableHappinessOptionsBtn();
             disableFunOptionsBtn();
 
+            //hide stuff we can't use
             hungerDisplay.classList.add('hidden');
             happinessDisplay.classList.add('hidden');
             funDisplay.classList.add('hidden');
@@ -338,10 +347,10 @@ const lowerFun = () => {
             foodOptionsBtn.classList.add('hidden');
             happinessOptionsBtn.classList.add('hidden');
             funOptionsBtn.classList.add('hidden');
+
             //when player loses, don't run anything else below
-            
             return;
-            //TO DO: trigger sleeping class
+
         }
 
         if (fun < 10) {
@@ -349,6 +358,8 @@ const lowerFun = () => {
         }
     }, 16000);
 };
+
+// === math for items ================================================================================================
 
 //food
 const addCookie = () => {
@@ -386,7 +397,7 @@ const addCereal = () => {
     showAllOptions();
 };
 
-//toys
+//gifts
 const addStuffedAnimal = () => {
     checkHappiness();
     
@@ -421,7 +432,7 @@ const addColoringBook = () => {
     showAllOptions();
 };
 
-//exercise
+//play
 const addTrampoline = () => {
     checkFun();
     
@@ -455,7 +466,7 @@ const addBaseballSet = () => {
     funDisplay.innerHTML = `${fun} <br> fun`;
     showAllOptions();
 };
-// ======================================================================================================
+// === day mechanics ==================================================================================================
 
 const nextDay = () => {
     console.log("it's the next day!");
@@ -519,9 +530,7 @@ const resetDay = () => {
    
 };
 
-// =======================================================================================================
-
-//button controls
+// === button controls ===========================================================================================
 
 //food toggles
 const disableFoodOptionsBtn = () => {
@@ -589,13 +598,14 @@ const enableBaseballSetBtn = () => {
     baseballSetBtn.disabled = false;
 };
 
+
+
 const updateActionsOptions = () => {
     screen.classList.toggle("actions-active");
 };
 
-// ==================================================
+// === animations ======================================================================
 
-//Animations
 const eatingAnimation = () => {
     let tamagotchi = document.getElementById("tamagotchi");
     let isIdle = false;
@@ -618,7 +628,7 @@ const eatingAnimation = () => {
         // stop after 3 seconds
         if (intervalCount >= 6) {
             clearInterval(interval);
-            // ensure toggling ends on "idle"
+            // ensure toggling ends on idle
             tamagotchi.classList.add("idle");
             tamagotchi.classList.remove("eating");
         }
@@ -647,7 +657,7 @@ const happyAnimation = () => {
         // stop after 3 seconds
         if (intervalCount >= 6) {
             clearInterval(interval);
-            // ensure toggling ends on "idle"
+            // ensure toggling ends on idle
             tamagotchi.classList.add("idle");
             tamagotchi.classList.remove("happy");
         }
@@ -676,7 +686,7 @@ const excitedAnimation = () => {
         // stop after 3 seconds
         if (intervalCount >= 6) {
             clearInterval(interval);
-            // ensure toggling ends on "idle"
+            // ensure toggling ends on idle
             tamagotchi.classList.add("idle");
             tamagotchi.classList.remove("excited");
         }
@@ -697,21 +707,21 @@ const awake = () => {
     tamagotchi.classList.add("idle");
 };
 
+// === listeners ===============================================================================================
+
+backBtn.addEventListener("click", function (event) {
+    backBtn.classList.add('hidden');
+    showAllOptions();
+    updateActionsOptions();
+});
 
 
-// ========================================================================================================
 
 foodOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
     updateActionsOptions();
     backBtn.classList.remove('hidden');
     showFoodOptions();
-});
-
-backBtn.addEventListener("click", function (event) {
-    backBtn.classList.add('hidden');
-    showAllOptions();
-    updateActionsOptions();
 });
 
 cookieBtn.addEventListener("click", function (event) {
@@ -725,12 +735,16 @@ cerealBtn.addEventListener("click", function (event) {
     updateActionsOptions();
 });
 
+
+
 continueBtn.addEventListener("click", function (event) {
     nextDay();
 });
 retryBtn.addEventListener("click", function (event) {
     retry();
 });
+
+
 
 happinessOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
@@ -750,6 +764,8 @@ coloringBookBtn.addEventListener("click", function (event) {
     updateActionsOptions();
 });
 
+
+
 funOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
     updateActionsOptions();
@@ -768,13 +784,13 @@ baseballSetBtn.addEventListener("click", function (event) {
     updateActionsOptions();
 });
 
-//=========================================================================================================
+//=== stuff to run when page loads ====================================================================================
 
-//stuff to do on page load
 //from MDN web docs window.onload
 window.onload = () => {
-    //binding timer to start onload
+    //checks user browser window size and maps clickable image
     imageMapResize();
+    //binding timer to start onload
     dayTimer();
     hungerDisplay.innerHTML = `${hunger} <br> hunger`;
     happinessDisplay.innerHTML = `${happiness} <br> happiness`;

@@ -15,11 +15,10 @@ const foodOptionsBtn = document.getElementById("foodOptionsBtn");
 const happinessOptionsBtn = document.querySelector("#happinessOptionsBtn");
 const funOptionsBtn = document.querySelector("#funOptionsBtn");
 
-
 const timerDisplay = document.querySelector('#timerDisplay');
 const hungerDisplay = document.querySelector('#hungerDisplay');
 const happinessDisplay = document.querySelector('#happinessDisplay');
-// const funDisplay = document.querySelector('#funDisplay');
+const backBtn = document.querySelector('#backBtn');
 
 const continueBtn = document.querySelector('#continueBtn');
 const retryBtn = document.querySelector('#retryBtn');
@@ -32,11 +31,6 @@ const coloringBookBtn = document.querySelector("#coloringBookBtn");
 
 const trampolineBtn = document.querySelector("#trampolineBtn");
 const baseballSetBtn = document.querySelector("#baseballSetBtn");
-
-//labels
-const feedLabel = document.querySelector("#feed-label");
-const playLabel = document.querySelector("#play-label");
-const exerciseLabel = document.querySelector("#exercise-label");
 
 const screen = document.querySelector("#screen");
 
@@ -525,15 +519,6 @@ const resetDay = () => {
    
 };
 
-
-
-//loss()
-//resetDay()
-//sleeping png class
-//buttons to retry()
-
-
-
 // =======================================================================================================
 
 //button controls
@@ -719,7 +704,14 @@ const awake = () => {
 foodOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
     updateActionsOptions();
+    backBtn.classList.remove('hidden');
     showFoodOptions();
+});
+
+backBtn.addEventListener("click", function (event) {
+    backBtn.classList.add('hidden');
+    showAllOptions();
+    updateActionsOptions();
 });
 
 cookieBtn.addEventListener("click", function (event) {
@@ -743,6 +735,7 @@ retryBtn.addEventListener("click", function (event) {
 happinessOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
     updateActionsOptions();
+    backBtn.classList.remove('hidden');
     showHappinessOptions();
 });
 
@@ -760,6 +753,7 @@ coloringBookBtn.addEventListener("click", function (event) {
 funOptionsBtn.addEventListener("click", function (event) {
     event.preventDefault();
     updateActionsOptions();
+    backBtn.classList.remove('hidden');
     showFunOptions();
 });
 
@@ -791,61 +785,3 @@ window.onload = () => {
     lowerHappiness();
     lowerFun();
 };
-
-// restartDay()
-// startNextDay()
-
-
-//randomly pick a state to decrease every 4 seconds (use setInterval to execute a callback function every 4 seconds?) by a random integer between 1-3
-
-
-
-
-
-
-
-
-
-
-// =============================
-
-//define idle state
-//PNG motion 
-//continuous firing
-
-//define changing idle -> another state
-//change class="idle" to class=".eating";
-
-//define eating state
-//change to "eating" class which displays eating.png
-//controls motion of the PNG by switching to transform class .up and transform class .down
-//on a 3 second timer, then reverts to idle state
-
-//define starving state
-//change to "starving" class which displays starving.png
-//no motion
-//triggers game loss, days reset
-
-//define playing state
-
-//define bored state
-
-//define sleeping state
-
-// =================================
-
-//define tamagotchi object
-//if hunger/boredom/exercise reach 0, trigger sleeping class
-
-//define days(rounds)
-//let day = 5 minute timer
-//if 5 minutes is reached, trigger success();
-//progress to day 2
-//update day
-
-
-//define loss
-//if hunger | boredom = 0;
-//trigger loss();
-//prompt to retry (does state reset and subtracts 1 from day value)
-//BUT day cannot be below one

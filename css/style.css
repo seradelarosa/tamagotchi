@@ -81,12 +81,42 @@ aside:last-of-type {
 }
 
 nav {
-    font-family: "Tiny5", serif;
-    font-size: 30px;
+    padding: 20px;
     grid-area: nav;
     background-color: white;
     display: flex;
+    position: relative;
     justify-content: center;
+    align-items: center;
+}
+
+nav button {
+    position: absolute;
+    border: 2px solid purple;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    right: 10px;
+}
+
+/* tutorial */
+nav #popup {
+    position: absolute;
+    font-family: "Tiny5", serif;
+    z-index: 2;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    padding: 10px;
+    background-color: white;
+}
+
+#timerDisplay {
+    font-family: "Tiny5", serif;
+    font-size: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #hungerDisplay,
@@ -278,7 +308,7 @@ button {
 .idle {
     grid-area: tamagotchi;
     background-image: url(/img/tama/idle.png);
-    background-size: contain; /* or cover */
+    background-size: contain; 
     background-repeat: no-repeat;
     width: 75px;
     height: 75px;
@@ -287,7 +317,7 @@ button {
 .eating {
     grid-area: tamagotchi;
     background-image: url(/img/tama/eating.png); 
-    background-size: contain; /* or cover */
+    background-size: contain;
     background-repeat: no-repeat;
     width: 75px;
     height: 75px;
@@ -296,16 +326,16 @@ button {
 .excited {
     grid-area: tamagotchi;
     background-image: url(/img/tama/excited.png); 
-    background-size: contain; /* or cover */
+    background-size: contain;
     background-repeat: no-repeat;
     width: 75px;
     height: 75px;
 }
 
-.happy{
+.happy {
     grid-area: tamagotchi;
     background-image: url(/img/tama/happy.png); 
-    background-size: contain; /* or cover */
+    background-size: contain;
     background-repeat: no-repeat;
     width: 75px;
     height: 75px;
@@ -314,7 +344,7 @@ button {
 .sleeping {
     grid-area: tamagotchi;
     background-image: url(/img/tama/sleeping.png); 
-    background-size: contain; /* or cover */
+    background-size: contain;
     background-repeat: no-repeat;
     width: 75px;
     height: 75px;

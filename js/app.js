@@ -95,8 +95,7 @@ const dayTimer = () => {
 
         if (timeLeft === 0 && hunger > 0 | timeLeft === 0 && happiness > 0 | timeLeft === 0 &&  fun > 0) {
             stopDayTimer();
-            console.log("daytimer");
-            updateActionsOptions();
+
             continueBtn.classList.remove('hidden');
             updateActionsOptions();
 
@@ -727,11 +726,13 @@ foodOptionsBtn.addEventListener("click", function (event) {
 cookieBtn.addEventListener("click", function (event) {
     eatingAnimation();
     addCookie();
+    backBtn.classList.add('hidden');
     updateActionsOptions();
 });
 cerealBtn.addEventListener("click", function (event) {
     eatingAnimation();
     addCereal();
+    backBtn.classList.add('hidden');
     updateActionsOptions();
 });
 
@@ -756,11 +757,13 @@ happinessOptionsBtn.addEventListener("click", function (event) {
 stuffedAnimalBtn.addEventListener("click", function (event) {
     happyAnimation();
     addStuffedAnimal();
+    backBtn.classList.add('hidden');
     updateActionsOptions();
 });
 coloringBookBtn.addEventListener("click", function (event) {
     happyAnimation();
     addColoringBook();
+    backBtn.classList.add('hidden');
     updateActionsOptions();
 });
 
@@ -776,12 +779,18 @@ funOptionsBtn.addEventListener("click", function (event) {
 trampolineBtn.addEventListener("click", function (event) {
     excitedAnimation();
     addTrampoline();
+    backBtn.classList.add('hidden');
     updateActionsOptions();
 });
 baseballSetBtn.addEventListener("click", function (event) {
     excitedAnimation();
     addBaseballSet();
+    backBtn.classList.add('hidden');
     updateActionsOptions();
+});
+
+document.getElementById("tutorialBtn").addEventListener("click", function () {
+    document.getElementById("popup").classList.toggle('hidden');
 });
 
 //=== stuff to run when page loads ====================================================================================
